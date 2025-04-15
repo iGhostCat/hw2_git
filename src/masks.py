@@ -18,7 +18,7 @@ def get_mask_card_number(card_number: str) -> str:
     return masked_number
 
 
-def get_mask_account(acc_number: int) -> str:
+def get_mask_account(acc_number: int | str) -> str:
     """Функция получения маски номера банковской карты,
     принимает номер карты числом, возвращает его маску в виде:
     **XXXX"""
