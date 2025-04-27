@@ -1,5 +1,7 @@
-def filter_by_state(dict_in : list,
-                    state=True) -> list:
+from typing import List, Dict, Union
+
+def filter_by_state(dict_in : List[Dict[str, Union[int, str, bool]]],
+                    state=True) -> List[Dict[str, Union[int, str, bool]]]:
     ''' Функция фильтрации списка операций пользователя по статусу выполнения, принимает
         на вход список словарей операций, возвращает список словарей, отфильтрованный по
         значению статуса выполнения '''
@@ -16,7 +18,10 @@ def filter_by_state(dict_in : list,
     return dict_out
 
 
-def sort_by_date(dict_in : list, direction = True):
+def sort_by_date(
+    dict_in: List[Dict[str, Union[int, str, bool]]],
+    direction: bool = True
+) -> List[Dict[str, Union[int, str, bool]]]:
     ''' Функция сортировки словарей в списке по дате, принимает список словарей и
         необязательный параметр, задающий порядок сортировки (по умолчанию — убывание).
         Функция должна возвращать новый список, отсортированный по дате'''
