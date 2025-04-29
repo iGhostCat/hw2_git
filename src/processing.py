@@ -1,29 +1,25 @@
 from typing import List, Dict, Union
 
-def filter_by_state(dict_in : List[Dict[str, Union[int, str, bool]]],
-                    state=True) -> List[Dict[str, Union[int, str, bool]]]:
+
+def filter_by_state(list_input : List[Dict[str, Union[int, str, bool]]],
+                    state: str = 'EXECUTED') -> List[Dict[str, Union[int, str, bool]]]:
     ''' Функция фильтрации списка операций пользователя по статусу выполнения, принимает
         на вход список словарей операций, возвращает список словарей, отфильтрованный по
         значению статуса выполнения '''
-    status = ''
-    if state:
-        status = 'EXECUTED'
-    else:
-        status = 'CANCELED'
 
-    dict_out = []
-    for dic in dict_in:
-        if dic['state'] == status:
-            dict_out.append(dic)
-    return dict_out
+    list_output = []
+    for element in list_input:
+        if element['state'] == state:
+            list_output.append(element)
+    return list_output
 
 
 def sort_by_date(
-    dict_in: List[Dict[str, Union[int, str, bool]]],
-    direction: bool = True
+    list_input: List[Dict[str, Union[int, str, bool]]],
+    direction: bool = False
 ) -> List[Dict[str, Union[int, str, bool]]]:
     ''' Функция сортировки словарей в списке по дате, принимает список словарей и
         необязательный параметр, задающий порядок сортировки (по умолчанию — убывание).
         Функция должна возвращать новый список, отсортированный по дате'''
-    sorted_dict = sorted(dict_in, key=lambda d: d['date'], reverse=direction)
-    return sorted_dict
+    sorted_list = sorted(list_input, key=lambda d: d['date'], reverse=direction)
+    return sorted_list
