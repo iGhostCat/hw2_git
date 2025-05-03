@@ -6,7 +6,7 @@ def get_mask_card_number(card_number: str) -> str:
 
     card_str = str(card_number).replace(" ", "") #Удаление пробелов из номера, если есть:
     if len(card_str) != 16 or not card_str.isdigit():
-        return "Номер карты должен состоять из 16 цифр!"
+        return "Неверный ввод!"
     # Разбиваем на части и маскируем
     first_part = card_str[:4]  # Первые 4 цифры
     second_part = card_str[4:6]  # Следующие 2 цифры (5-6)
@@ -23,5 +23,5 @@ def get_mask_account(acc_number: int | str) -> str:
     принимает номер карты числом, возвращает его маску в виде:
     **XXXX"""
     if len(acc_number) != 20:
-        return 'Номер счёта должен состоять из 20 цифр!'
+        return "Неверный ввод!"
     return "**" + str(acc_number[-4 : len(str(acc_number))])
