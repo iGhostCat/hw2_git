@@ -4,7 +4,7 @@ def get_mask_card_number(card_number: str) -> str:
     Показывает первые 6 и последние 4 цифры, остальные заменяет на *.
     """
 
-    card_str = str(card_number).replace(" ", "") #Удаление пробелов из номера, если есть:
+    card_str = str(card_number).replace(" ", "")  # Удаление пробелов из номера, если есть:
     if len(card_str) != 16 or not card_str.isdigit():
         return "Неверный ввод!"
     # Разбиваем на части и маскируем
