@@ -16,3 +16,7 @@ git clone https://github.com/iGhostCat/hw2_git.git
 ```
 pip install poetry
 poetry shell
+```
+3. Проведите тестирование корректности работы представленного функционала:
+```
+pytest
