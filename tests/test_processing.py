@@ -1,6 +1,8 @@
-from src.processing import filter_by_state, sort_by_date
 import pytest
+
+from src.processing import filter_by_state, sort_by_date
 from tests.conftest import list_of_dicts
+
 
 @pytest.mark.parametrize(
     "state,expected",
@@ -13,12 +15,12 @@ from tests.conftest import list_of_dicts
             ],
         ),
         (
-            'EXECUTED',
+            "EXECUTED",
             [
                 {"id": 41428829, "state": "EXECUTED", "date": "2019-07-03T18:35:29.512364"},
-                {"id": 939719570, "state": "EXECUTED", "date": "2018-06-30T02:08:58.425572"}
-            ]
-        )
+                {"id": 939719570, "state": "EXECUTED", "date": "2018-06-30T02:08:58.425572"},
+            ],
+        ),
     ],
 )
 def test_filter_by_state(list_of_dicts, state, expected):
