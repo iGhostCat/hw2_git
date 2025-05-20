@@ -1,17 +1,18 @@
 import os
-from unittest.mock import patch, Mock
+from unittest.mock import Mock, patch
+
 import pytest
 from dotenv import load_dotenv
 
 load_dotenv("../.env")
 
 # Тестируемые функции
-from src.external_api import to_rubles_convert, api_convert_in_rubles
+from src.external_api import api_convert_in_rubles, to_rubles_convert
 
 
 def test_to_rubles_convert_empty_list():
     """Тест для пустого списка транзакций"""
-    with patch('src.external_api.json_to_list', return_value=[]):
+    with patch("src.external_api.json_to_list", return_value=[]):
         assert to_rubles_convert("any_path.json") == []
 
 
@@ -72,7 +73,13 @@ def test_to_rubles_convert_with_mocks(mock_get, mock_json):
 
     # Настраиваем мок API
     mock_response = Mock()
-    mock_response.json.return_value = {'success': True, 'query': {'from': 'USD', 'to': 'RUB', 'amount': 8221.37}, 'info': {'timestamp': 1747752484, 'rate': 80.750359}, 'date': '2025-05-20', 'result': 663878.578972}
+    mock_response.json.return_value = {
+        "success": True,
+        "query": {"from": "USD", "to": "RUB", "amount": 8221.37},
+        "info": {"timestamp": 1747752484, "rate": 80.750359},
+        "date": "2025-05-20",
+        "result": 663878.578972,
+    }
     mock_get.return_value = mock_response
 
     # Вызываем функцию
@@ -110,4 +117,3 @@ def test_to_rubles_convert_with_mocks(mock_get, mock_json):
             "to": "Счет 35383033474447895560",
         },
     ]
-
