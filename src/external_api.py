@@ -15,9 +15,6 @@ def api_convert_in_rubles(transaction):
     https://apilayer.com/marketplace/exchangerates_data-api#authentication
     Принимает словарь с данными о транзакции, возвращает словарь с данными
     о размере транзакции в переводе в рубли"""
-    if transaction["operationAmount"]["currency"]["code"] == "RUB":
-        return None
-
     url = (
         f"https://api.apilayer.com/exchangerates_data/convert?"
         f"to=RUB&from={transaction['operationAmount']['currency']['code']}"
