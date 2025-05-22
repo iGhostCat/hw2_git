@@ -15,9 +15,11 @@ def get_mask_card_number(card_number: str) -> str:
     """
 
     card_str = str(card_number).replace(" ", "")  # Удаление пробелов из номера, если есть:
-    masks_logger.info('Начало работы функции, обработка пробелов в номере')
+    masks_logger.info("Начало работы функции, обработка пробелов в номере")
     if len(card_str) != 16 or not card_str.isdigit():
-        masks_logger.error('Ошибка: неверный ввод номера, присутствуют нецифровые символы или неподходящая длина строки')
+        masks_logger.error(
+            "Ошибка: неверный ввод номера, присутствуют нецифровые символы или неподходящая длина строки"
+        )
         return "Неверный ввод!"
     # Разбиваем на части и маскируем
     first_part = card_str[:4]  # Первые 4 цифры
@@ -34,12 +36,13 @@ def get_mask_account(acc_number: int | str) -> str:
     """Функция получения маски номера банковской карты,
     принимает номер карты числом, возвращает его маску в виде:
     **XXXX"""
-    masks_logger.info('Начало работы функции')
+    masks_logger.info("Начало работы функции")
     if len(acc_number) != 20 or not acc_number.isdigit():
-        masks_logger.error('Ошибка: неверный ввод, недостаточный размер строки или присутствуют нецифровые символы')
+        masks_logger.error("Ошибка: неверный ввод, недостаточный размер строки или присутствуют нецифровые символы")
         return "Неверный ввод!"
-    masks_logger.info('Обработка завершена успешно')
+    masks_logger.info("Обработка завершена успешно")
     return "**" + str(acc_number[-4 : len(str(acc_number))])
 
+
 print(get_mask_card_number("7000792289606361"))
-print(get_mask_account('73654108430135874305'))
+print(get_mask_account("73654108430135874305"))

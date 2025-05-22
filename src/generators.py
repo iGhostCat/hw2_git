@@ -1,6 +1,3 @@
-import random
-
-from tests.conftest import transactions
 
 transaction_list = [
     {
