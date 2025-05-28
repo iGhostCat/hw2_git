@@ -1,7 +1,13 @@
 import logging
+from pathlib import Path
+
+# Создаем папку logs
+log_dir = Path(__file__).parent.parent / "logs"
+log_dir.mkdir(exist_ok=True)
+
 
 masks_logger = logging.getLogger("masks")
-masks_file_handler = logging.FileHandler("../logs/masks.log", encoding="utf-8", mode="w")
+masks_file_handler = logging.FileHandler(log_dir / "masks.log", encoding="utf-8", mode="w")
 masks_file_formatter = logging.Formatter("%(asctime)s: %(filename)s: %(funcName)s: %(levelname)s: %(message)s")
 masks_file_handler.setFormatter(masks_file_formatter)
 masks_logger.addHandler(masks_file_handler)
