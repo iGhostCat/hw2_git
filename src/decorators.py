@@ -14,8 +14,10 @@ def log_output(filename=None):
                 result = func(*args, **kwargs)
 
                 timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-                log_message = (f"[{timestamp}] Function {func.__name__} has been called with args={args},"
-                               f" kwargs={kwargs}. Result: {result}\n")
+                log_message = (
+                    f"[{timestamp}] Function {func.__name__} has been called with args={args},"
+                    f" kwargs={kwargs}. Result: {result}\n"
+                )
                 if filename:
                     with open(filename, "a", encoding="utf-8") as log_file:
                         log_file.write(log_message)
@@ -24,8 +26,10 @@ def log_output(filename=None):
                 return result
             except Exception as e:
                 timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-                log_message = (f"[{timestamp}] Function {func.__name__} has been called with args={args},"
-                               f" kwargs={kwargs}. Result: {e}!")
+                log_message = (
+                    f"[{timestamp}] Function {func.__name__} has been called with args={args},"
+                    f" kwargs={kwargs}. Result: {e}!"
+                )
 
                 if filename:
                     with open(filename, "a", encoding="utf-8") as log_file:

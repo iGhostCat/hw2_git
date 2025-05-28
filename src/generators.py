@@ -1,4 +1,3 @@
-
 transaction_list = [
     {
         "id": 939719570,
