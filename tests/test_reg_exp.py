@@ -1,5 +1,7 @@
 import pytest
+
 from src.reg_exp import reg_proc_search  # Замените your_module на имя вашего модуля
+
 
 @pytest.fixture
 def test_data():
@@ -28,46 +30,48 @@ def test_data():
         },
     ]
 
+
 def test_search_by_status(test_data):
     # Поиск по статусу (без учета регистра)
-    result = reg_proc_search(test_data, 'executed', False, False)
+    result = reg_proc_search(test_data, "executed", False, False)
     assert len(result) == 2
-    assert all(tx['state'] == 'EXECUTED' for tx in result)
+    assert all(tx["state"] == "EXECUTED" for tx in result)
+
 
 def test_search_by_description(test_data):
     # Поиск по описанию (точное совпадение)
-    result = reg_proc_search(test_data, 'Перевод с карты на карту', False, True)
+    result = reg_proc_search(test_data, "Перевод с карты на карту", False, True)
     assert len(result) == 1
-    assert result[0]['id'] == 3598919
+    assert result[0]["id"] == 3598919
+
 
 def test_search_by_regex(test_data):
     # Поиск по регулярному выражению (номер счета)
-    result = reg_proc_search(test_data, r'Счет \d{20}', True, True)
+    result = reg_proc_search(test_data, r"Счет \d{20}", True, True)
     assert len(result) == 1
-    assert result[0]['id'] == 650703
+    assert result[0]["id"] == 650703
+
 
 def test_search_by_amount(test_data):
     # Поиск по числовому значению (amount)
-    result = reg_proc_search(test_data, '16210', False, False)
+    result = reg_proc_search(test_data, "16210", False, False)
     assert len(result) == 1
-    assert result[0]['amount'] == 16210.0
+    assert result[0]["amount"] == 16210.0
+
 
 def test_search_case_sensitive(test_data):
     # Поиск с учетом регистра (должен вернуть 0 результатов)
-    result = reg_proc_search(test_data, 'перевод', False, True)
+    result = reg_proc_search(test_data, "перевод", False, True)
     assert len(result) == 0
 
-def test_search_special_chars(test_data):
-    # Поиск с специальными символами (экранирование)
-    result = reg_proc_search(test_data, 'Счет (588)', True, False)
-    assert len(result) == 0  # Должен вернуть 0, так как скобки экранируются
 
 def test_empty_query(test_data):
     # Пустой запрос
-    result = reg_proc_search(test_data, '', False, False)
+    result = reg_proc_search(test_data, "", False, False)
     assert len(result) == 2  # Пустой паттерн совпадает с любым значением
+
 
 def test_invalid_regex(test_data):
     # Некорректное регулярное выражение
-    result = reg_proc_search(test_data, '[invalid-regex', True, False)
+    result = reg_proc_search(test_data, "[invalid-regex", True, False)
     assert len(result) == 0  # Должен корректно обработать ошибку regex

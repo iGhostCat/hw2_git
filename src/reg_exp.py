@@ -1,35 +1,32 @@
 import re
 
 test_data = [
-        {
-            "id": 650703,
-            "state": "EXECUTED",
-            "date": "2023-09-05T11:30:32Z",
-            "amount": 16210.0,
-            "currency_name": "Sol",
-            "currency_code": "PEN",
-            "description": "Перевод организации",
-            "from": "Счет 58803664561298323391",
-            "to": "Счет 39745660563456619397",
-        },
-        {
-            "id": 3598919,
-            "state": "EXECUTED",
-            "date": "2020-12-06T23:00:58Z",
-            "amount": 29740.0,
-            "currency_name": "Peso",
-            "currency_code": "COP",
-            "description": "Перевод с карты на карту",
-            "from": "Discover 3172601889670065",
-            "to": "Discover 0720428384694643",
-        },
-    ]
+    {
+        "id": 650703,
+        "state": "EXECUTED",
+        "date": "2023-09-05T11:30:32Z",
+        "amount": 16210.0,
+        "currency_name": "Sol",
+        "currency_code": "PEN",
+        "description": "Перевод организации",
+        "from": "Счет 58803664561298323391",
+        "to": "Счет 39745660563456619397",
+    },
+    {
+        "id": 3598919,
+        "state": "EXECUTED",
+        "date": "2020-12-06T23:00:58Z",
+        "amount": 29740.0,
+        "currency_name": "Peso",
+        "currency_code": "COP",
+        "description": "Перевод с карты на карту",
+        "from": "Discover 3172601889670065",
+        "to": "Discover 0720428384694643",
+    },
+]
 
-def reg_proc_search( database,
-    search_query,
-    use_regex,
-    case_sensitive
-):
+
+def reg_proc_search(database, search_query, use_regex, case_sensitive):
     """
     Умный поиск с автоматическим определением/преобразованием запроса.
 
@@ -62,4 +59,5 @@ def reg_proc_search( database,
 
     return results
 
-#print(reg_proc_search(test_data, 'executed', True, False))
+
+# print(reg_proc_search(test_data, 'executed', True, False))
