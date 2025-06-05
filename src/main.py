@@ -18,24 +18,36 @@ def main():
                 """Привет! Добро пожаловать в программу работы с банковскими транзакциями.\nВыберите необходимый пункт меню:
                     1. Получить информацию о транзакциях из JSON-файла
                     2. Получить информацию о транзакциях из CSV-файла
-                    3. Получить информацию о транзакциях из XLSX-файла"""
+                    3. Получить информацию о транзакциях из XLSX-файла\n"""
             )
         )
         if file_type == 1:
             print("Для обработки выбран JSON-файл.")
             database_path = str(input("Введите путь к файлу:"))
-            transactions_data = json_to_list(database_path)
-            success_proc_choice = True
+            if database_path.endswith('.json'):
+                transactions_data = json_to_list(database_path)
+                success_proc_choice = True
+            else:
+                print("Неверный формат файла! Попробуйте ещё раз")
+                success_status_choice = False
         elif file_type == 2:
             print("Для обработки выбран CSV-файл.")
             database_path = str(input("Введите путь к файлу:"))
-            transactions_data = csv_to_list_of_dicts(database_path)
-            success_proc_choice = True
+            if database_path.endswith('.csv'):
+                transactions_data = csv_to_list_of_dicts(database_path)
+                success_proc_choice = True
+            else:
+                print("Неверный формат файла! Попробуйте ещё раз")
+                success_status_choice = False
         elif file_type == 3:
             print("Для обработки выбран XLSX-файл.")
             database_path = str(input("Введите путь к файлу:"))
-            transactions_data = excel_to_list_of_dicts(database_path)
-            success_proc_choice = True
+            if database_path.endswith('.xlsx'):
+                transactions_data = excel_to_list_of_dicts(database_path)
+                success_proc_choice = True
+            else:
+                print("Неверный формат файла! Попробуйте ещё раз")
+                success_status_choice = False
         else:
             print("Неверный ввод варианта обработки!")
 
