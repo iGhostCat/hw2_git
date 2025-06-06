@@ -5,12 +5,12 @@ from src.generators import filter_by_currency
 from src.processing import filter_by_state, sort_by_date
 from src.reg_exp import reg_proc_search
 from src.utils import json_to_list
+from src.widget import get_date
 
 
-def main():
+def main(database_path):
     success_proc_choice = False
     transactions_data = []
-    database_path = ""
     while not success_proc_choice:
 
         file_type = int(
@@ -23,7 +23,7 @@ def main():
         )
         if file_type == 1:
             print("Для обработки выбран JSON-файл.")
-            database_path = str(input("Введите путь к файлу:"))
+
             if database_path.endswith(".json"):
                 transactions_data = json_to_list(database_path)
                 success_proc_choice = True
@@ -32,7 +32,6 @@ def main():
                 success_status_choice = False
         elif file_type == 2:
             print("Для обработки выбран CSV-файл.")
-            database_path = str(input("Введите путь к файлу:"))
             if database_path.endswith(".csv"):
                 transactions_data = csv_to_list_of_dicts(database_path)
                 success_proc_choice = True
@@ -41,7 +40,7 @@ def main():
                 success_status_choice = False
         elif file_type == 3:
             print("Для обработки выбран XLSX-файл.")
-            database_path = str(input("Введите путь к файлу:"))
+
             if database_path.endswith(".xlsx"):
                 transactions_data = excel_to_list_of_dicts(database_path)
                 success_proc_choice = True
@@ -86,7 +85,7 @@ def main():
         else:
             print("Неверный ввод! Попробуйте ещё раз")
             success_date_filter_choice = False
-
+    date_ascending = False
     ascending_choice = False
     while not ascending_choice:
         print("Отсортировать по возрастанию или по убыванию?")
@@ -94,7 +93,7 @@ def main():
         if asc.lower() == "по возрастанию":
             ascending_choice = True
             date_ascending = True
-        elif asc.lower() == "по убыванию":
+        elif asc.lower() == "по убыванию" or asc.lower() == "нет":
             ascending_choice = True
             date_ascending = False
         else:
@@ -132,9 +131,20 @@ def main():
             query_choice = False
     if not transactions_data:
         print("""Не найдено ни одной транзакции, подходящей под ваши условия фильтрации""")
+        return transactions_data
+    trans_count = len(transactions_data)
+
+    print(f"Всего банковских операций в выборке: {trans_count}")
+    for trans in transactions_data:
+        print(f'{get_date(trans["date"])} {trans["description"]}')
+        if "Открытие" in trans["description"]:
+            print(trans["to"])
+        else:
+            print(f"{trans["from"]} -> {trans['to']}")
+        print(f'Сумма: {trans["operationAmount"]["amount"]} {trans["operationAmount"]["currency"]["code"]}\n')
     return transactions_data
 
 
 if __name__ == "__main__":
     #############################################
-    print(main())
+    main("../data/test_transactions_csv.csv")

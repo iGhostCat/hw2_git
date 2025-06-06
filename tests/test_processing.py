@@ -1,6 +1,6 @@
 import pytest
 
-from src.processing import filter_by_state, sort_by_date
+from src.processing import count_operations_by_category, filter_by_state, sort_by_date
 from tests.conftest import list_of_dicts
 
 
@@ -43,3 +43,37 @@ def test_filter_by_state(list_of_dicts, state, expected):
 )
 def test_sort_by_date(list_of_dicts, direction, expected_result):
     assert sort_by_date(list_of_dicts, direction) == expected_result
+
+
+def test_count_operations():
+    # Тестовые данные
+    operations = [
+        {"description": "Перевод организации"},
+        {"description": "Перевод с карты на карту"},
+        {"description": "Перевод организации"},
+        {"description": "Оплата услуг"},
+    ]
+
+    # Тест 1: Стандартный случай
+    categories = ["Перевод организации", "Перевод с карты на карту"]
+    result = count_operations_by_category(operations, categories)
+    assert result == {"Перевод организации": 2, "Перевод с карты на карту": 1}
+
+    # Тест 2: Категории, которых нет в данных
+    categories = ["Открытие вклада", "Закрытие счета"]
+    result = count_operations_by_category(operations, categories)
+    assert result == {"Открытие вклада": 0, "Закрытие счета": 0}
+
+    # Тест 3: Пустые данные
+    result = count_operations_by_category([], categories)
+    assert result == {"Открытие вклада": 0, "Закрытие счета": 0}
+
+    # Тест 4: Операции без описания
+    operations = [{"id": 1}, {"description": None}, {"description": ""}]
+    result = count_operations_by_category(operations, ["Перевод"])
+    assert result == {"Перевод": 0}
+
+    print("Все тесты пройдены!")
+
+
+test_count_operations()
