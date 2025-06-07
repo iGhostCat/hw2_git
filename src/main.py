@@ -8,7 +8,7 @@ from src.utils import json_to_list
 from src.widget import get_date
 
 
-def main(database_path):
+def main():
     success_proc_choice = False
     transactions_data = []
     while not success_proc_choice:
@@ -23,33 +23,19 @@ def main(database_path):
         )
         if file_type == 1:
             print("Для обработки выбран JSON-файл.")
-
-            if database_path.endswith(".json"):
-                transactions_data = json_to_list(database_path)
-                success_proc_choice = True
-            else:
-                print("Неверный формат файла! Попробуйте ещё раз")
-                success_status_choice = False
+            transactions_data = json_to_list("../data/operations.json")
+            success_proc_choice = True
         elif file_type == 2:
             print("Для обработки выбран CSV-файл.")
-            if database_path.endswith(".csv"):
-                transactions_data = csv_to_list_of_dicts(database_path)
-                success_proc_choice = True
-            else:
-                print("Неверный формат файла! Попробуйте ещё раз")
-                success_status_choice = False
+            transactions_data = csv_to_list_of_dicts("../data/transactions.csv")
+            success_proc_choice = True
         elif file_type == 3:
             print("Для обработки выбран XLSX-файл.")
-
-            if database_path.endswith(".xlsx"):
-                transactions_data = excel_to_list_of_dicts(database_path)
-                success_proc_choice = True
-            else:
-                print("Неверный формат файла! Попробуйте ещё раз")
-                success_status_choice = False
+            transactions_data = excel_to_list_of_dicts("../data/transactions_excel.xlsx")
+            success_proc_choice = True
         else:
             print("Неверный ввод варианта обработки!")
-
+            success_proc_choice = False
     success_status_choice = False
     while not success_status_choice:
         print(
@@ -93,9 +79,11 @@ def main(database_path):
         if asc.lower() == "по возрастанию":
             ascending_choice = True
             date_ascending = True
-        elif asc.lower() == "по убыванию" or asc.lower() == "нет":
+        elif asc.lower() == "по убыванию":
             ascending_choice = True
             date_ascending = False
+        elif asc.lower() == "нет":
+            ascending_choice = True
         else:
             print("Неверный ввод! Попробуйте ещё раз")
             ascending_choice = False
@@ -147,4 +135,4 @@ def main(database_path):
 
 if __name__ == "__main__":
     #############################################
-    main("../data/test_transactions_csv.csv")
+    main()
