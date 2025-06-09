@@ -88,4 +88,4 @@ def card_number_generator(start, end):
 
 
 # print(list(filter_by_currency(transaction_list, 'RUB')))
-print(list(transaction_descriptions(transaction_list)))
+# print(list(transaction_descriptions(transaction_list)))

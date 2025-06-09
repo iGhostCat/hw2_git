@@ -50,5 +50,5 @@ def get_mask_account(acc_number: int | str) -> str:
     return "**" + str(acc_number[-4 : len(str(acc_number))])
 
 
-print(get_mask_card_number("7000792289606361"))
-print(get_mask_account("73654108430135874305"))
+# print(get_mask_card_number("7000792289606361"))
+# print(get_mask_account("73654108430135874305"))

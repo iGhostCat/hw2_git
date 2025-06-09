@@ -1,3 +1,5 @@
+from unittest.mock import patch
+
 import pytest
 
 
@@ -60,3 +62,55 @@ def transactions():
             "to": "Счет 14211924144426031657",
         },
     ]
+
+
+# import pytest
+
+
+@pytest.fixture(scope="module")
+def sample_transactions():
+    return [
+        {
+            "id": "650703",
+            "state": "EXECUTED",
+            "date": "2023-09-05T11:30:32Z",
+            "operationAmount": {"amount": "16210.0", "currency": {"name": "Sol", "code": "PEN"}},
+            "description": "Перевод организации",
+            "from": "Счет 58803664561298323391",
+            "to": "Счет 39745660563456619397",
+        }
+    ]
+
+
+@pytest.fixture
+def mock_environment():
+    """Фикстура для мокирования всего окружения"""
+    with (
+        patch("builtins.input") as mock_input,
+        patch("builtins.print") as mock_print,
+        patch("src.utils.json_to_list") as mock_json,
+        patch("src.csv_pd_converter.csv_to_list_of_dicts") as mock_csv,
+        patch("src.csv_pd_converter.excel_to_list_of_dicts") as mock_excel,
+        patch("src.processing.filter_by_state") as mock_filter,
+        patch("src.processing.sort_by_date") as mock_sort,
+        patch("src.generators.filter_by_currency") as mock_currency,
+        patch("src.reg_exp.reg_proc_search") as mock_search,
+    ):
+        yield {
+            "input": mock_input,
+            "print": mock_print,
+            "json": mock_json,
+            "csv": mock_csv,
+            "excel": mock_excel,
+            "filter": mock_filter,
+            "sort": mock_sort,
+            "currency": mock_currency,
+            "search": mock_search,
+        }
+
+
+@pytest.fixture(autouse=True)
+def log_test_run():
+    print("\nStarting test...")
+    yield
+    print("Test completed.")
